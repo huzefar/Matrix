@@ -10,7 +10,10 @@ class Matrix : public QObject
     Q_OBJECT
 public:
     explicit Matrix(int nRow, int nColumn, QObject *parent = nullptr);
+
+    /*! default matrix is 1x1 matrix */
     explicit Matrix(QObject *parent = nullptr);
+
     ~Matrix() {;}
 
     //! getters

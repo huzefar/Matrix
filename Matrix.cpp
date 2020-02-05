@@ -10,8 +10,8 @@ Matrix::Matrix(int nRow, int nColumn, QObject *parent)
 
 Matrix::Matrix(QObject *parent)
        : QObject(parent)
-       , m_nRows(-1)
-       , m_nColumns(-1)
+       , m_nRows(1)
+       , m_nColumns(1)
 {
 }
 
