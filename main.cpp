@@ -57,10 +57,16 @@ int main(int argc, char *argv[])
     name = QStringLiteral("2");
     createMatrix(name, matrix2);
 
-    Matrix resultMatrix;
-    matrix1.multiply(matrix2, resultMatrix);
-
-    resultMatrix.dump("Result Matrix");
+    if (matrix1.canMultiply(matrix2))
+    {
+        Matrix resultMatrix;
+        matrix1.multiply(matrix2, resultMatrix);
+        resultMatrix.dump("Result Matrix");
+    }
+    else
+    {
+        qDebug() << "ERROR: Attempted Multiplication with InCompatible Matrices";
+    }
 
     qDebug() << "********* Ending the matrix multiplication test *********";
     return a.exec();

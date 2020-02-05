@@ -18,10 +18,13 @@ public:
 
     //! getters
     int getRowCount() const { return m_nRows; }
-    void setRows(int nRow) { m_nRows = nRow;}
-
     int getColumnCount() const { return m_nColumns; }
+
+    //! setters
+    void setRows(int nRow) { m_nRows = nRow;}
     void setColumns(int nColumn) { m_nColumns = nColumn; }
+
+    bool canMultiply(const Matrix& secondMatrix) const;
 
     bool populate(const MatrixData &data);
 

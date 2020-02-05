@@ -15,6 +15,12 @@ Matrix::Matrix(QObject *parent)
 {
 }
 
+bool Matrix::canMultiply(const Matrix& secondMatrix) const
+{
+    //! Rule: Column in first matrix == rows in second matrix
+    return m_nColumns == secondMatrix.m_nRows;
+}
+
 bool Matrix::populate(const MatrixData& data)
 {
     bool returnResult = true;
@@ -38,7 +44,6 @@ bool Matrix::populate(const MatrixData& data)
         returnResult = false;
     }
 
-//    qDebug() << "Matrix data populated: " << m_data;
     return returnResult;
 }
 
@@ -46,7 +51,7 @@ bool Matrix::populate(const MatrixData& data)
 void Matrix::multiply(const Matrix& secondMatrix, Matrix& resultMatrix)
 {
     //! Rule: Column in first matrix == rows in second matrix
-    if (m_nColumns != secondMatrix.m_nRows)
+    if (!canMultiply(secondMatrix))
     {
         qDebug() << "Rule failed for matrix multiplication";
         return;
@@ -63,8 +68,6 @@ void Matrix::multiply(const Matrix& secondMatrix, Matrix& resultMatrix)
 
         QList<int> currentRow = m_data.at(i);
 
-//        qDebug() << "currentRow " << currentRow;
-
         for (int j = 0; j < secondMatrix.m_nColumns; ++j)
         {
             QList<int> currentColumn;
@@ -72,8 +75,6 @@ void Matrix::multiply(const Matrix& secondMatrix, Matrix& resultMatrix)
             {
                 currentColumn << secondMatrix.m_data.at(k).at(j);
             }
-
-//            qDebug() << "current column " << currentColumn;
 
             //! row count and column count should be same
             Q_ASSERT(currentRow.count() == currentColumn.count());
@@ -87,7 +88,6 @@ void Matrix::multiply(const Matrix& secondMatrix, Matrix& resultMatrix)
             resultRow << sum;
         }
 
-//        qDebug() << "Result Row" << resultRow;
         resultData.append(resultRow);
     }
 
