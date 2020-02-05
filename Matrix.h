@@ -1,0 +1,34 @@
+#ifndef MATRIX_H
+#define MATRIX_H
+
+#include <QObject>
+
+typedef QList<QList<int>> MatrixData;
+
+class Matrix : public QObject
+{
+    Q_OBJECT
+public:
+    explicit Matrix(int nRow, int nColumn, QObject *parent = nullptr);
+    explicit Matrix(QObject *parent = nullptr);
+    ~Matrix() {;}
+
+    //! getters
+    int getRowCount() const { return m_nRows; }
+    void setRows(int nRow) { m_nRows = nRow;}
+
+    int getColumnCount() const { return m_nColumns; }
+    void setColumns(int nColumn) { m_nColumns = nColumn; }
+
+    bool populate(const MatrixData &data);
+
+    void multiply(const Matrix& secondMatrix, Matrix &resultMatrix);
+
+    void dump(const QString& str);
+private:
+    int m_nRows;
+    int m_nColumns;
+    MatrixData m_data;
+};
+
+#endif // MATRIX_H
